@@ -15,44 +15,64 @@ namespace CandyCrush
 
         public void Play()
         {
-            while (true)
+            int movesLeft = 20;  // Set the desired number of moves
+
+            while (movesLeft > 0)
             {
                 Console.Clear();
                 gameBoard.PrintBoard();
 
                 Console.WriteLine($"{player.Name}'s Score: {player.Score}");
-                Console.WriteLine("Enter row and column for the first candy (e.g., 1 2):");
-                string[] input1 = Console.ReadLine().Split();
-                int row1 = int.Parse(input1[0]) - 1;
-                int col1 = int.Parse(input1[1]) - 1;
+                Console.WriteLine($"Moves Left: {movesLeft}");
+                Console.WriteLine("Enter two candy positions to swap (e.g., A1B2):");
+                string input = Console.ReadLine();
 
-                Console.WriteLine("Enter row and column for the second candy (e.g., 2 2):");
-                string[] input2 = Console.ReadLine().Split();
-                int row2 = int.Parse(input2[0]) - 1;
-                int col2 = int.Parse(input2[1]) - 1;
-
-                gameBoard.SwapCandies(row1, col1, row2, col2);
-
-                if (gameBoard.IsMatch())
+                if (input.Length == 4)
                 {
-                    Console.WriteLine("Match found!");
+                    char row1 = input[0];
+                    int col1 = int.Parse(input[1].ToString()) - 1;
 
-                    // Detect and remove matches
-                    int matchedCandiesCount = DetectMatches();
-                    if (matchedCandiesCount > 0)
+                    char row2 = input[2];
+                    int col2 = int.Parse(input[3].ToString()) - 1;
+
+                    gameBoard.SwapCandies(row1 - 'A', col1, row2 - 'A', col2);
+
+                    if (gameBoard.IsMatch())
                     {
-                        bool isHorizontalMatch = true;  // Adjust this based on your matching logic
-                        gameBoard.RemoveMatchedCandies(row1, col1, matchedCandiesCount, isHorizontalMatch, player);
+                        Console.WriteLine("Match found!");
+
+                        int matchedCandiesCount = DetectMatches();
+                        if (matchedCandiesCount > 0)
+                        {
+                            bool isHorizontalMatch = true;  // Adjust this based on your matching logic
+                            gameBoard.RemoveMatchedCandies(row1 - 'A', col1, matchedCandiesCount, isHorizontalMatch, player);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No match found. Try again.");
+                        gameBoard.SwapCandies(row1 - 'A', col1, row2 - 'A', col2);
+                    }
+
+                    movesLeft--;
+
+                    // Check for game-over condition
+                    if (movesLeft == 0)
+                    {
+                        Console.WriteLine("Game over! No moves left.");
+                        // Add any additional game-over logic here
+                        break;
                     }
                 }
                 else
                 {
-                    Console.WriteLine("No match found. Try again.");
-                    // Implement logic to swap candies back if there is no match
-                    gameBoard.SwapCandies(row1, col1, row2, col2);
+                    Console.WriteLine("Invalid input. Please enter two candy positions.");
                 }
 
-                // Add game-over conditions or other game logic here
+                // Add any other game logic here
+
+                // Uncomment the following line to pause for better readability during testing
+                Console.ReadKey();
             }
         }
 

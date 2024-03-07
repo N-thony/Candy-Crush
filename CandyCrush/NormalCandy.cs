@@ -21,13 +21,18 @@ namespace CandyCrush
             {
                 return normalCandy.Type == Type;
             }
+            else if (other is SpecialCandy specialCandy)
+            {
+                // Add logic for matching with special candies
+                return specialCandy.Type == Type;
+            }
+
             return false;
         }
-
         public override void Remove(Player player)
         {
-            Console.Write(" "); // You can customize this based on your game logic
-            player.IncreaseScore(10); // Increase score for each removed normal candy
+            Console.Write(" ");
+            player.IncreaseScore(5); // Increase score for each removed normal candy
         }
     }
 }

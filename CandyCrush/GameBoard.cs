@@ -39,14 +39,46 @@ namespace CandyCrush
 
         public void PrintBoard()
         {
-            for (int row = 0; row < rows; row++)
+            Console.Write("   "); // Add three spaces for better alignment before the column headers
+
+            // Display column headers (letters) with separation
+            for (int col = 0; col < Cols; col++)
             {
-                for (int col = 0; col < cols; col++)
+                Console.Write((char)('A' + col) + "  ");
+            }
+
+            Console.WriteLine(); // Move to the next line for the row numbers
+
+            // Display separator line
+            Console.Write("  +");
+            for (int col = 0; col < Cols; col++)
+            {
+                Console.Write("---+");
+            }
+
+            Console.WriteLine(); // Move to the next line after the separator line
+
+            // Display rows with row numbers
+            for (int row = 0; row < Rows; row++)
+            {
+                Console.Write((row + 1) + " |"); // Display row number and separator
+
+                for (int col = 0; col < Cols; col++)
                 {
-                    candies[row, col].Print();
-                    Console.Write(" ");
+                    candies[row, col]?.Print(); // Display candy or empty space
+                    Console.Write(" |");
                 }
-                Console.WriteLine();
+
+                Console.WriteLine(); // Move to the next line after each row
+
+                // Display separator line after each row
+                Console.Write("  +");
+                for (int col = 0; col < Cols; col++)
+                {
+                    Console.Write("---+");
+                }
+
+                Console.WriteLine(); // Move to the next line after the separator line
             }
         }
 
