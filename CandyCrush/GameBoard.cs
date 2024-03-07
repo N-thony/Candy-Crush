@@ -84,9 +84,11 @@ namespace CandyCrush
 
         public void SwapCandies(int row1, int col1, int row2, int col2)
         {
-            ICandy temp = candies[row1, col1];
-            candies[row1, col1] = candies[row2, col2];
-            candies[row2, col2] = temp;
+            try {
+                ICandy temp = candies[row1, col1];
+                candies[row1, col1] = candies[row2, col2];
+                candies[row2, col2] = temp;
+            } catch(Exception ex) { Console.WriteLine(ex.Message); }
         }
 
         public bool IsMatch()

@@ -24,7 +24,7 @@ namespace CandyCrush
 
                 Console.WriteLine($"{player.Name}'s Score: {player.Score}");
                 Console.WriteLine($"Moves Left: {movesLeft}");
-                Console.WriteLine("Enter two candy positions to swap (e.g., A1B2):");
+                Console.WriteLine("Enter two candies positions to swap (e.g., A1B2):");
                 string input = Console.ReadLine();
 
                 if (input.Length == 4)
@@ -66,7 +66,7 @@ namespace CandyCrush
                 }
                 else
                 {
-                    Console.WriteLine("Invalid input. Please enter two candy positions.");
+                    Console.WriteLine("Invalid input. Please enter two candies positions.");
                 }
 
                 // Add any other game logic here

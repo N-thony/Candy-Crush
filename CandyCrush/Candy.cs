@@ -1,23 +1,17 @@
-﻿public enum CandyType
+﻿namespace CandyCrush
 {
-    Red,
-    Green,
-    Blue,
-    Yellow,
-    Purple
-}
-
-public class Candy
-{
-    public CandyType Type { get; }
-
-    public Candy(CandyType type)
+    public class Candy
     {
-        Type = type;
-    }
+        public CandyType Type { get; }
 
-    public override string ToString()
-    {
-        return Type.ToString()[0].ToString();
+        public Candy(CandyType type)
+        {
+            Type = type;
+        }
+
+        public override string ToString()
+        {
+            return Type.ToString()[0].ToString();
+        }
     }
 }

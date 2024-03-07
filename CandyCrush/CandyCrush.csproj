@@ -46,8 +46,9 @@
     <Compile Include="Candy.cs" />
     <Compile Include="CandyBase.cs" />
     <Compile Include="CandyCrushGame.cs" />
+    <Compile Include="Enum\CandyType.cs" />
     <Compile Include="GameBoard.cs" />
-    <Compile Include="ICandy.cs" />
+    <Compile Include="Interface\ICandy.cs" />
     <Compile Include="NormalCandy.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
