@@ -3,7 +3,7 @@
     public interface ICandy
     {
         void Print();
-        bool IsMatch(ICandy other);
+        bool IsMatch(ICandy otherTypeCandy);
         void Remove(Player player);
     }
 }

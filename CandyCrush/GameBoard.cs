@@ -6,6 +6,7 @@ namespace CandyCrush
         private readonly ICandy[,] candies;
         private readonly int rows;
         private readonly int cols;
+        private Level currentLevel;
 
         public int Rows => rows;
         public int Cols => cols; 
@@ -15,8 +16,8 @@ namespace CandyCrush
             this.rows = rows;
             this.cols = cols;
             candies = new ICandy[rows, cols];
-
             InitializeBoard();
+            //currentLevel = new Level(1);
         }
 
         private void InitializeBoard()
@@ -35,6 +36,11 @@ namespace CandyCrush
                     candies[row, col] = candy;
                 }
             }
+        }
+
+        public void ResetBoard()
+        {
+            InitializeBoard();
         }
 
         public void PrintBoard()
@@ -127,18 +133,21 @@ namespace CandyCrush
 
         public void RemoveMatchedCandies(int startRow, int startCol, int length, bool isHorizontal, Player player)
         {
-            for (int i = 0; i < length; i++)
-            {
-                ICandy candy = isHorizontal ? candies[startRow, startCol + i] : candies[startRow + i, startCol];
-                candy.Remove(player);
-                candies[startRow + i, startCol] = null;
+            try {
+                for (int i = 0; i < length; i++)
+                {
+                    ICandy candy = isHorizontal ? candies[startRow, startCol + i] : candies[startRow + i, startCol];
+                    candy.Remove(player);
+                    candies[startRow + i, startCol] = null;
+                    // Shift candies down after removal
+                    ShiftCandiesDown();
+
+                    // Add new candies to fill the empty spaces
+                    FillEmptySpaces();
+                }
+            } catch(Exception ex) {
+                Console.WriteLine(ex.Message);
             }
-
-            // Shift candies down after removal
-            ShiftCandiesDown();
-
-            // Add new candies to fill the empty spaces
-            FillEmptySpaces();
         }
 
         private void ShiftCandiesDown()

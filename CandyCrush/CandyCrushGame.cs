@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CandyCrush
 {
@@ -6,16 +7,28 @@ namespace CandyCrush
     {
         private readonly GameBoard gameBoard;
         private readonly Player player;
+        private List<Level> levels;
+        private int currentLevelIndex;
 
         public CandyCrushGame(int rows, int cols, string playerName)
         {
             gameBoard = new GameBoard(rows, cols);
             player = new Player(playerName);
+            InitializeLevels();
+        }
+
+        private void InitializeLevels()
+        {
+            levels = new List<Level>{
+                     new Level(targetScore: 100, movesAllowed: 20),
+                     new Level(targetScore: 150, movesAllowed: 25),
+            };
+            currentLevelIndex = 0;
         }
 
         public void Play()
         {
-            int movesLeft = 20;  // Set the desired number of moves
+            int movesLeft = levels[currentLevelIndex].MovesAllowed;
 
             while (movesLeft > 0)
             {
@@ -23,6 +36,7 @@ namespace CandyCrush
                 gameBoard.PrintBoard();
 
                 Console.WriteLine($"{player.Name}'s Score: {player.Score}");
+                Console.WriteLine($"Target Score: {levels[currentLevelIndex].TargetScore}");
                 Console.WriteLine($"Moves Left: {movesLeft}");
                 Console.WriteLine("Enter two candies positions to swap (e.g., A1B2):");
                 string input = Console.ReadLine();
@@ -56,11 +70,28 @@ namespace CandyCrush
 
                     movesLeft--;
 
+                    // Check for level completion
+                    if (player.Score >= levels[currentLevelIndex].TargetScore)
+                    {
+                        Console.WriteLine($"Level {currentLevelIndex + 1} completed!");
+                        currentLevelIndex++;
+
+                        if (currentLevelIndex < levels.Count)
+                        {
+                            Console.WriteLine($"Moving to Level {currentLevelIndex + 1}");
+                            gameBoard.ResetBoard();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Congratulations! You completed all levels.");
+                            break;
+                        }
+                    }
+
                     // Check for game-over condition
-                    if (movesLeft == 0)
+                    if (levels[currentLevelIndex].MovesAllowed == 0)
                     {
                         Console.WriteLine("Game over! No moves left.");
-                        // Add any additional game-over logic here
                         break;
                     }
                 }
@@ -69,20 +100,12 @@ namespace CandyCrush
                     Console.WriteLine("Invalid input. Please enter two candies positions.");
                 }
 
-                // Add any other game logic here
-
-                // Uncomment the following line to pause for better readability during testing
                 Console.ReadKey();
             }
         }
 
         private int DetectMatches()
         {
-            // Implement your matching logic here
-            // For simplicity, consider three consecutive candies of the same type as a match
-            // You may want to add more sophisticated matching logic in a real game
-            // Return the count of matched candies
-
             int matchedCandiesCount = 0;
 
             for (int row = 0; row < gameBoard.Rows; row++)

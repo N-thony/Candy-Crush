@@ -49,6 +49,7 @@
     <Compile Include="Enum\CandyType.cs" />
     <Compile Include="GameBoard.cs" />
     <Compile Include="Interface\ICandy.cs" />
+    <Compile Include="Level.cs" />
     <Compile Include="NormalCandy.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />

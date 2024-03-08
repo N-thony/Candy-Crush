@@ -15,14 +15,14 @@ namespace CandyCrush
             Console.Write("S"); // Special candies can be represented differently
         }
 
-        public override bool IsMatch(ICandy other)
+        public override bool IsMatch(ICandy otherTypeCandy)
         {
-            if (other is NormalCandy normalCandy)
+            if (otherTypeCandy is NormalCandy normalCandy)
             {
                 // Add logic for matching with normal candies
                 return normalCandy.Type == Type;
             }
-            else if (other is SpecialCandy specialCandy)
+            else if (otherTypeCandy is SpecialCandy specialCandy)
             {
                 // Add logic for matching with other special candies
                 return specialCandy.Type == Type;

@@ -15,13 +15,13 @@ namespace CandyCrush
             Console.Write(Type.ToString()[0]);
         }
 
-        public override bool IsMatch(ICandy other)
+        public override bool IsMatch(ICandy otherTypeCandy)
         {
-            if (other is NormalCandy normalCandy)
+            if (otherTypeCandy is NormalCandy normalCandy)
             {
                 return normalCandy.Type == Type;
             }
-            else if (other is SpecialCandy specialCandy)
+            else if (otherTypeCandy is SpecialCandy specialCandy)
             {
                 // Add logic for matching with special candies
                 return specialCandy.Type == Type;
