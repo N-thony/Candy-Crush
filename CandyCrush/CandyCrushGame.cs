@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CandyCrush
 {
@@ -43,13 +44,14 @@ namespace CandyCrush
 
                 if (input.Length == 4)
                 {
-                    char row1 = input[0];
-                    int col1 = int.Parse(input[1].ToString()) - 1;
+                    
+                    int row1 = int.Parse(input[1].ToString()) - 1;
+                    int col1 = char.ToUpper(input[0]) - 'A';
 
-                    char row2 = input[2];
-                    int col2 = int.Parse(input[3].ToString()) - 1;
+                    int row2 = int.Parse(input[3].ToString()) - 1;
+                    int col2 = char.ToUpper(input[2]) - 'A';
 
-                    gameBoard.SwapCandies(row1 - 'A', col1, row2 - 'A', col2);
+                    gameBoard.SwapCandies(row1, col1, row2, col2);
 
                     if (gameBoard.IsMatch())
                     {
@@ -59,13 +61,13 @@ namespace CandyCrush
                         if (matchedCandiesCount > 0)
                         {
                             bool isHorizontalMatch = true;  // Adjust this based on your matching logic
-                            gameBoard.RemoveMatchedCandies(row1 - 'A', col1, matchedCandiesCount, isHorizontalMatch, player);
+                            gameBoard.RemoveMatchedCandies(row1, col1, matchedCandiesCount, isHorizontalMatch, player);
                         }
                     }
                     else
                     {
                         Console.WriteLine("No match found. Try again.");
-                        gameBoard.SwapCandies(row1 - 'A', col1, row2 - 'A', col2);
+                        gameBoard.SwapCandies(row1 , col1, row2 , col2);
                     }
 
                     movesLeft--;
