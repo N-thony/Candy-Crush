@@ -3,7 +3,7 @@ namespace CandyCrush
 {
     public class GameBoard
     {
-        private readonly ICandy[,] candies;
+        public readonly ICandy[,] candies;
         private readonly int rows;
         private readonly int cols;
         private Level currentLevel;
@@ -20,7 +20,7 @@ namespace CandyCrush
             //currentLevel = new Level(1);
         }
 
-        private void InitializeBoard()
+        public void InitializeBoard()
         {
             Random random = new Random();
 
