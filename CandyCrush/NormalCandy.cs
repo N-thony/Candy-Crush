@@ -23,7 +23,6 @@ namespace CandyCrush
             }
             else if (otherTypeCandy is SpecialCandy specialCandy)
             {
-                // Add logic for matching with special candies
                 return specialCandy.Type == Type;
             }
 
@@ -32,7 +31,7 @@ namespace CandyCrush
         public override void Remove(Player player)
         {
             Console.Write(" ");
-            player.IncreaseScore(5); // Increase score for each removed normal candy
+            player.IncreaseScore(20); // Increase score for each removed normal candy
         }
     }
 }

@@ -36,8 +36,6 @@ namespace CandyCurshTest
             Assert.Equal(targetCandy, gameBoard.candies[0, 0]);
             Assert.Equal(initialCandy, gameBoard.candies[0, 1]);
         }
-
-        // Add more tests for other methods in GameBoard class
     }
 
     public class PlayerTests
@@ -54,8 +52,6 @@ namespace CandyCurshTest
             // Assert
             Assert.Equal(10, player.Score);
         }
-
-        // Add more tests for other methods in Player class
     }
 
 }

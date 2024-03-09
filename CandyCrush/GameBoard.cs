@@ -6,7 +6,6 @@ namespace CandyCrush
         public readonly ICandy[,] candies;
         private readonly int rows;
         private readonly int cols;
-        private Level currentLevel;
 
         public int Rows => rows;
         public int Cols => cols; 
@@ -17,7 +16,6 @@ namespace CandyCrush
             this.cols = cols;
             candies = new ICandy[rows, cols];
             InitializeBoard();
-            //currentLevel = new Level(1);
         }
 
         public void InitializeBoard()
@@ -28,7 +26,6 @@ namespace CandyCrush
             {
                 for (int col = 0; col < cols; col++)
                 {
-                    // Introduce some randomness for demonstration purposes
                     ICandy candy = random.Next(10) < 2 // 20% chance to create a special candy
                         ? (ICandy)new SpecialCandy((CandyType)random.Next(Enum.GetNames(typeof(CandyType)).Length))
                         : new NormalCandy((CandyType)random.Next(Enum.GetNames(typeof(CandyType)).Length));
@@ -45,7 +42,7 @@ namespace CandyCrush
 
         public void PrintBoard()
         {
-            Console.Write("   "); // Add three spaces for better alignment before the column headers
+            Console.Write("   "); // Add spaces for better alignment before the column headers
 
             // Display column headers (letters) with separation
             for (int col = 0; col < Cols; col++)

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CandyCrush
 {
@@ -12,19 +8,17 @@ namespace CandyCrush
 
         public override void Print()
         {
-            Console.Write("S"); // Special candies can be represented differently
+            Console.Write("S"); // Represents special candy
         }
 
         public override bool IsMatch(ICandy otherTypeCandy)
         {
             if (otherTypeCandy is NormalCandy normalCandy)
             {
-                // Add logic for matching with normal candies
                 return normalCandy.Type == Type;
             }
             else if (otherTypeCandy is SpecialCandy specialCandy)
             {
-                // Add logic for matching with other special candies
                 return specialCandy.Type == Type;
             }
 
@@ -34,7 +28,7 @@ namespace CandyCrush
         public override void Remove(Player player)
         {
             Console.Write(" ");
-            player.IncreaseScore(10); // Increase score for each removed special candy
+            player.IncreaseScore(30); // Increase score for each removed special candy
         }
     }
 }

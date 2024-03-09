@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace CandyCrush
 {
@@ -37,6 +36,7 @@ namespace CandyCrush
                 gameBoard.PrintBoard();
 
                 Console.WriteLine($"{player.Name}'s Score: {player.Score}");
+                Console.WriteLine($"Level: {currentLevelIndex + 1}");
                 Console.WriteLine($"Target Score: {levels[currentLevelIndex].TargetScore}");
                 Console.WriteLine($"Moves Left: {movesLeft}");
                 Console.WriteLine("Enter two candies positions to swap (e.g., A1B2):");
@@ -60,7 +60,7 @@ namespace CandyCrush
                         int matchedCandiesCount = DetectMatches();
                         if (matchedCandiesCount > 0)
                         {
-                            bool isHorizontalMatch = true;  // Adjust this based on your matching logic
+                            bool isHorizontalMatch = true;
                             gameBoard.RemoveMatchedCandies(row1, col1, matchedCandiesCount, isHorizontalMatch, player);
                         }
                     }
