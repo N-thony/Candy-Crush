@@ -22,87 +22,97 @@ namespace CandyCrush
             levels = new List<Level>{
                      new Level(targetScore: 100, movesAllowed: 20),
                      new Level(targetScore: 150, movesAllowed: 25),
+                     new Level(targetScore: 250, movesAllowed: 30),
+                     new Level(targetScore: 300, movesAllowed: 35)
             };
             currentLevelIndex = 0;
         }
 
+
         public void Play()
         {
-            int movesLeft = levels[currentLevelIndex].MovesAllowed;
+            try {
+                int movesLeft = levels[currentLevelIndex].MovesAllowed;
 
-            while (movesLeft > 0)
-            {
-                Console.Clear();
-                gameBoard.PrintBoard();
-
-                Console.WriteLine($"{player.Name}'s Score: {player.Score}");
-                Console.WriteLine($"Level: {currentLevelIndex + 1}");
-                Console.WriteLine($"Target Score: {levels[currentLevelIndex].TargetScore}");
-                Console.WriteLine($"Moves Left: {movesLeft}");
-                Console.WriteLine("Enter two candies positions to swap (e.g., A1B2):");
-                string input = Console.ReadLine();
-
-                if (input.Length == 4)
+                while (movesLeft > 0)
                 {
-                    
-                    int row1 = int.Parse(input[1].ToString()) - 1;
-                    int col1 = char.ToUpper(input[0]) - 'A';
+                    Console.Clear();
+                    gameBoard.PrintBoard();
 
-                    int row2 = int.Parse(input[3].ToString()) - 1;
-                    int col2 = char.ToUpper(input[2]) - 'A';
+                    Console.WriteLine($"{player.Name}'s Score: {player.Score}");
+                    Console.WriteLine($"Level: {currentLevelIndex + 1}");
+                    Console.WriteLine($"Target Score: {levels[currentLevelIndex].TargetScore}");
+                    Console.WriteLine($"Moves Left: {movesLeft}");
+                    Console.WriteLine("Enter two candies positions to swap (e.g., A1B2):");
+                    string input = Console.ReadLine();
 
-                    gameBoard.SwapCandies(row1, col1, row2, col2);
-
-                    if (gameBoard.IsMatch())
+                    if (input.Length == 4)
                     {
-                        Console.WriteLine("Match found!");
 
-                        int matchedCandiesCount = DetectMatches();
-                        if (matchedCandiesCount > 0)
+                        int row1 = int.Parse(input[1].ToString()) - 1;
+                        int col1 = char.ToUpper(input[0]) - 'A';
+
+                        int row2 = int.Parse(input[3].ToString()) - 1;
+                        int col2 = char.ToUpper(input[2]) - 'A';
+
+                        gameBoard.SwapCandies(row1, col1, row2, col2);
+
+                        if (gameBoard.IsMatch())
                         {
-                            bool isHorizontalMatch = true;
-                            gameBoard.RemoveMatchedCandies(row1, col1, matchedCandiesCount, isHorizontalMatch, player);
+                            Console.WriteLine("Match found!");
+
+                            int matchedCandiesCount = DetectMatches();
+                            if (matchedCandiesCount > 0)
+                            {
+                                bool isHorizontalMatch = true;
+                                gameBoard.RemoveMatchedCandies(row1, col1, matchedCandiesCount, isHorizontalMatch, player);
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No match found. Try again.");
+                            gameBoard.SwapCandies(row1, col1, row2, col2);
+                        }
+
+                        movesLeft--;
+
+                        // Check for level completion
+                        if (player.Score >= levels[currentLevelIndex].TargetScore)
+                        {
+                            Console.WriteLine($"Level {currentLevelIndex + 1} completed!");
+                            currentLevelIndex++;
+
+                            if (currentLevelIndex < levels.Count)
+                            {
+                                Console.WriteLine($"Moving to Level {currentLevelIndex + 1}");
+                                // Reset the player's score and moves left to the next level's configuration
+                                player.Score = 0;
+                                movesLeft = levels[currentLevelIndex].MovesAllowed;
+                                gameBoard.ResetBoard();
+                            }
+                            else
+                            {
+                                Console.WriteLine("Congratulations! You completed all levels.");
+                                break;
+                            }
+                        }
+
+                        // Check for game-over condition
+                        if (levels[currentLevelIndex].MovesAllowed == 0)
+                        {
+                            Console.WriteLine("Game over! No moves left.");
+                            break;
                         }
                     }
                     else
                     {
-                        Console.WriteLine("No match found. Try again.");
-                        gameBoard.SwapCandies(row1 , col1, row2 , col2);
+                        Console.WriteLine("Invalid input. Please enter two candies positions.");
                     }
 
-                    movesLeft--;
-
-                    // Check for level completion
-                    if (player.Score >= levels[currentLevelIndex].TargetScore)
-                    {
-                        Console.WriteLine($"Level {currentLevelIndex + 1} completed!");
-                        currentLevelIndex++;
-
-                        if (currentLevelIndex < levels.Count)
-                        {
-                            Console.WriteLine($"Moving to Level {currentLevelIndex + 1}");
-                            gameBoard.ResetBoard();
-                        }
-                        else
-                        {
-                            Console.WriteLine("Congratulations! You completed all levels.");
-                            break;
-                        }
-                    }
-
-                    // Check for game-over condition
-                    if (levels[currentLevelIndex].MovesAllowed == 0)
-                    {
-                        Console.WriteLine("Game over! No moves left.");
-                        break;
-                    }
+                    Console.ReadKey();
                 }
-                else
-                {
-                    Console.WriteLine("Invalid input. Please enter two candies positions.");
-                }
-
-                Console.ReadKey();
+            } catch(Exception ex) {
+                Console.WriteLine(ex.Message);
             }
         }
 
