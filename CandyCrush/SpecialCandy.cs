@@ -8,7 +8,7 @@ namespace CandyCrush
 
         public override void Print()
         {
-            Console.Write("S"); // Represents special candy
+            Console.Write("@"); // Represents special candy
         }
 
         public override bool IsMatch(ICandy otherTypeCandy)
@@ -28,7 +28,7 @@ namespace CandyCrush
         public override void Remove(Player player)
         {
             Console.Write(" ");
-            player.IncreaseScore(30); // Increase score for each removed special candy
+            player.IncreaseScore(20); // Increase score for each removed special candy
         }
     }
 }

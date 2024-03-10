@@ -31,7 +31,7 @@ namespace CandyCrush
         public override void Remove(Player player)
         {
             Console.Write(" ");
-            player.IncreaseScore(20); // Increase score for each removed normal candy
+            player.IncreaseScore(10); // Increase score for each removed normal candy
         }
     }
 }
