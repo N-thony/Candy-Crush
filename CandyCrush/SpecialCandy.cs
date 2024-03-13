@@ -13,11 +13,7 @@ namespace CandyCrush
 
         public override bool IsMatch(ICandy otherTypeCandy)
         {
-            if (otherTypeCandy is NormalCandy normalCandy)
-            {
-                return normalCandy.Type == Type;
-            }
-            else if (otherTypeCandy is SpecialCandy specialCandy)
+            if (otherTypeCandy is SpecialCandy specialCandy)
             {
                 return specialCandy.Type == Type;
             }
